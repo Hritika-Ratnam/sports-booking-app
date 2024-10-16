@@ -10,7 +10,7 @@ const corsOptions = {
     methods: 'GET,POST,PUT,DELETE',  // Specify the allowed HTTP methods
     optionsSuccessStatus: 200  // For legacy browser support
 };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json()); // Middleware to parse incoming requests as JSON
 
 // API endpoint to view bookings by center, sport, and date
