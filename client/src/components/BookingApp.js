@@ -20,7 +20,7 @@ const BookingApp = () => {
 
     // Fetch all centers on component mount
     useEffect(() => {
-        axios.get('https://sports-booking-app-backend.onrender.com/centers')
+        axios.get('http://localhost:3001/centers')
             .then(response => {
                 setCenters(response.data);
             })
@@ -32,7 +32,7 @@ const BookingApp = () => {
     // Fetch sports based on selected center
     useEffect(() => {
         if (selectedCenter) {
-            axios.get(`https://sports-booking-app-backend.onrender.com/centers/${selectedCenter}/sports`)
+            axios.get(`http://localhost:3001/centers/${selectedCenter}/sports`)
                 .then(response => {
                     setSports(response.data);
                 })
@@ -45,7 +45,7 @@ const BookingApp = () => {
     // Fetch courts based on selected center and sport
     useEffect(() => {
         if (selectedCenter && selectedSport) {
-            axios.get(`https://sports-booking-app-backend.onrender.com/centers/${selectedCenter}/sports/${selectedSport}/courts`)
+            axios.get(`http://localhost:3001/centers/${selectedCenter}/sports/${selectedSport}/courts`)
                 .then(response => {
                     setCourts(response.data);
                 })
@@ -59,7 +59,7 @@ const BookingApp = () => {
     const fetchBookings = () => {
         if (selectedCenter && selectedSport && selectedDate) {
             setLoading(true);
-            axios.get('https://sports-booking-app-backend.onrender.com/bookings', {
+            axios.get('http://localhost:3001/bookings', {
                 params: {
                     center_id: selectedCenter,
                     sport_id: selectedSport,
@@ -81,7 +81,7 @@ const BookingApp = () => {
 
     // Handle booking slot
     const handleBookSlot = (slot, customerName) => {
-        axios.post('https://sports-booking-app-backend.onrender.com/bookings', {
+        axios.post('http://localhost:3001/bookings', {
             court_id: slot.courtId,
             center_id: selectedCenter,    // Pass the selected center ID
             sport_id: selectedSport,      // Pass the selected sport ID

@@ -23,7 +23,7 @@ const AdminPanel = () => {
 
     const fetchCenters = () => {
         setLoading(true);
-        axios.get('https://sports-booking-app-backend.onrender.com/centers')
+        axios.get('http://localhost:3001/centers')
             .then(response => setCenters(response.data))
             .catch(error => console.error("Error fetching centers:", error))
             .finally(() => setLoading(false));
@@ -33,7 +33,7 @@ const AdminPanel = () => {
     useEffect(() => {
         if (selectedCenter) {
             setLoading(true);
-            axios.get(`https://sports-booking-app-backend.onrender.com/centers/${selectedCenter}/sports`)
+            axios.get(`http://localhost:3001/centers/${selectedCenter}/sports`)
                 .then(response => setSports(response.data))
                 .catch(error => console.error("Error fetching sports:", error))
                 .finally(() => setLoading(false));
@@ -46,7 +46,7 @@ const AdminPanel = () => {
     useEffect(() => {
         if (selectedSport) {
             setLoading(true);
-            axios.get(`https://sports-booking-app-backend.onrender.com/centers/${selectedCenter}/sports/${selectedSport}/courts`)
+            axios.get(`http://localhost:3001/centers/${selectedCenter}/sports/${selectedSport}/courts`)
                 .then(response => setCourts(response.data))
                 .catch(error => console.error("Error fetching courts:", error))
                 .finally(() => setLoading(false));
@@ -62,7 +62,7 @@ const AdminPanel = () => {
             return;
         }
         setLoading(true);
-        axios.post('https://sports-booking-app-backend.onrender.com/centers', { name: newCenterName, location: newCenterLocation })
+        axios.post('http://localhost:3001/centers', { name: newCenterName, location: newCenterLocation })
             .then(() => {
                 setFeedback('Center added successfully!');
                 setNewCenterName('');
@@ -81,7 +81,7 @@ const AdminPanel = () => {
             return;
         }
         setLoading(true);
-        axios.post('https://sports-booking-app-backend.onrender.com/sports', { name: newSportName, center_id: selectedCenter })
+        axios.post('http://localhost:3001/sports', { name: newSportName, center_id: selectedCenter })
             .then(() => {
                 setFeedback('Sport added successfully!');
                 setNewSportName('');
@@ -98,7 +98,7 @@ const AdminPanel = () => {
             return;
         }
         setLoading(true);
-        axios.post('https://sports-booking-app-backend.onrender.com/courts', { name: newCourtName, center_id: selectedCenter, sport_id: selectedSport })
+        axios.post('http://localhost:3001/courts', { name: newCourtName, center_id: selectedCenter, sport_id: selectedSport })
             .then(() => {
                 setFeedback('Court added successfully!');
                 setNewCourtName('');
