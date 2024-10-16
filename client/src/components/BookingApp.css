@@ -1,74 +1,183 @@
-/* BookingApp.css */
+/* Light mode styles */
+:root {
+    --background-color: white;
+    --text-color: black;
+    --button-bg-color: #007bff;
+    --button-text-color: white;
+    --input-bg-color: #f1f1f1;
+    --input-border-color: #ccc;
+    --grid-border-color: #ddd;
+    --grid-bg-color: white;
+    --grid-hover-bg-color: #e9ecef;
+    --modal-bg-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Dark mode styles */
+.dark-mode {
+    --background-color: #121212;
+    --text-color: #f1f1f1;
+    --button-bg-color: #444;
+    --button-text-color: #f1f1f1;
+    --input-bg-color: #333;
+    --input-border-color: #555;
+    --grid-border-color: #444;
+    --grid-bg-color: #1e1e1e;
+    --grid-hover-bg-color: #333;
+    --modal-bg-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Applying the CSS variables */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f7f9fc;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Input field styling */
+input, select {
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--input-border-color);
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 5px;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 label {
-    font-weight: bold;
-}
-
-select, input[type="date"] {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    width: 100%;
-    box-sizing: border-box;
+    display: block;
+    margin-top: 15px;
 }
 
 button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
     padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
     margin-top: 15px;
-    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    opacity: 0.8;
 }
 
-.bookings-list {
+/* Schedule grid styling */
+.schedule-grid table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
 }
 
-.bookings-list ul {
-    list-style-type: none;
-    padding: 0;
+/* Table heading styling */
+.schedule-grid th {
+    background-color: #4a90e2; /* Blue background for the header */
+    color: white; /* White text for better contrast */
+    font-size: 16px;
+    padding: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid var(--grid-border-color); /* Maintain consistent border */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.bookings-list li {
-    background-color: #e9ecef;
+/* Dark mode heading */
+.dark-mode .schedule-grid th {
+    background-color: #005b96; /* Darker blue in dark mode */
+    color: #ffffff; /* White text for contrast in dark mode */
+}
+
+/* Booked slot styling */
+.booked-slot {
+    background-color: #ffcccb; /* Light red for booked slots in light mode */
+    color: #d8000c; /* Dark red text for contrast */
     padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    font-weight: bold;
+    border-radius: 4px;
 }
 
-.bookings-list h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
+.dark-mode .booked-slot {
+    background-color: #a94442; /* Darker red for booked slots in dark mode */
+    color: #ffffff; /* White text for contrast */
+}
+
+/* Loading spinner */
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Modal for confirmation or messages */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--modal-bg-color); /* Darkened overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--grid-bg-color); /* The same as the grid background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 300px;
     text-align: center;
+    color: var(--text-color); /* Text will follow the theme color */
+    font-weight: 500;
+    border: 1px solid var(--grid-border-color); /* Slight border to define the modal in both modes */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modal button {
+    margin-top: 20px;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modal button:hover {
+    opacity: 0.8;
+}
+
+/* Dark/Light mode toggle icon in top right corner */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--text-color);
 }

@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import './Schedule.css';
-import BookingModal from './BookingModal'; // Import the modal component
+import './BookingApp.css'; // Make sure to import the same CSS
 
 function ScheduleGrid({ bookings, courts, timeSlots, onBookSlot }) {
     const [selectedSlot, setSelectedSlot] = useState(null); // Track the selected slot
-    const [showModal, setShowModal] = useState(false); // Control modal visibility
+    const [customerName, setCustomerName] = useState(''); // Customer name for booking
 
     const handleOpenSlotClick = (courtId, courtName, time) => {
         setSelectedSlot({ courtId, courtName, time });
-        setShowModal(true); // Show the modal when an "Open" slot is clicked
-    };
-
-    const handleCloseModal = () => {
-        setShowModal(false);
-        setSelectedSlot(null); // Reset the selected slot
+        const name = prompt("Enter your name to book the slot:");
+        if (name) {
+            setCustomerName(name);
+            onBookSlot({ courtId, time }, name); // Book the slot
+        }
     };
 
     return (
@@ -35,7 +33,7 @@ function ScheduleGrid({ bookings, courts, timeSlots, onBookSlot }) {
                                 <td key={court.id}>
                                     {getBookingForTime(court.id, time, bookings) || (
                                         <button onClick={() => handleOpenSlotClick(court.id, court.name, time)}>
-                                            Open
+                                            Book The Slot
                                         </button>
                                     )}
                                 </td>
@@ -44,14 +42,6 @@ function ScheduleGrid({ bookings, courts, timeSlots, onBookSlot }) {
                     ))}
                 </tbody>
             </table>
-
-            {/* Modal for booking */}
-            <BookingModal
-                show={showModal}
-                onClose={handleCloseModal}
-                onBookSlot={(customerName) => onBookSlot(selectedSlot, customerName)}
-                selectedSlot={selectedSlot}
-            />
         </div>
     );
 }
@@ -66,15 +56,11 @@ function getBookingForTime(courtId, time, bookings) {
         return null;  // No booking found, return null so we can show "Open" by default
     }
 
-    if (booking.status === 'pending') {
-        return <div className="pending-booking">{booking.customer_name} (Pending)</div>;
-    }
-
-    if (booking.status === 'coaching') {
-        return <div className="coaching">{booking.customer_name} (Coaching)</div>;
-    }
-
-    return <div className="normal-booking">{booking.customer_name}</div>;
+    return (
+        <div className="booked-slot">
+            {booking.customer_name} {/* Show the customer's name */}
+        </div>
+    );
 }
 
 export default ScheduleGrid;
