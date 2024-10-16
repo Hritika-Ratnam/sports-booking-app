@@ -1,0 +1,39 @@
+.schedule-grid table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.schedule-grid th, .schedule-grid td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.schedule-grid th {
+    background-color: #f4f4f4;
+}
+
+.normal-booking {
+    background-color: #d4edda; /* Light green */
+    padding: 5px;
+}
+
+.pending-booking {
+    background-color: #f8d7da; /* Light red */
+    padding: 5px;
+}
+
+.coaching {
+    background-color: #d1ecf1; /* Light blue */
+    padding: 5px;
+}
+
+.schedule-grid td {
+    min-width: 100px;
+    min-height: 40px;
+}
+
+.schedule-grid td::after {
+    color: #28a745; /* Green for Open slots */
+    font-weight: bold;
+}
