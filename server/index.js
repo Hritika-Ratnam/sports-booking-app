@@ -125,14 +125,19 @@ app.post('/centers', (req, res) => {
     });
 });
 
-// API to create a new sport
+// API to create a new sport under a specific center
 app.post('/sports', (req, res) => {
-    const { name } = req.body;
+    const { name, center_id } = req.body;
 
-    // SQL query to insert a new sport
-    const insertQuery = `INSERT INTO sports (name) VALUES (?)`;
+    // Validate required fields
+    if (!name || !center_id) {
+        return res.status(400).json({ message: 'Missing required fields: sport name or center_id' });
+    }
 
-    db.query(insertQuery, [name], (error, result) => {
+    // SQL query to insert a new sport under the specified center
+    const insertQuery = `INSERT INTO sports (name, center_id) VALUES (?, ?)`;
+
+    db.query(insertQuery, [name, center_id], (error, result) => {
         if (error) {
             return res.status(500).json({ message: 'Database error', error });
         }
@@ -140,11 +145,16 @@ app.post('/sports', (req, res) => {
     });
 });
 
-// API to create a new court
+// API to create a new court under a specific center and sport
 app.post('/courts', (req, res) => {
     const { name, center_id, sport_id } = req.body;
 
-    // SQL query to insert a new court
+    // Validate required fields
+    if (!name || !center_id || !sport_id) {
+        return res.status(400).json({ message: 'Missing required fields: court name, center_id, or sport_id' });
+    }
+
+    // SQL query to insert a new court under the specified center and sport
     const insertQuery = `INSERT INTO courts (name, center_id, sport_id) VALUES (?, ?, ?)`;
 
     db.query(insertQuery, [name, center_id, sport_id], (error, result) => {
@@ -171,11 +181,11 @@ app.get('/centers', (req, res) => {
 app.get('/centers/:center_id/sports', (req, res) => {
     const { center_id } = req.params;
 
+    // SQL query to fetch sports for the given center_id
     const query = `
-        SELECT DISTINCT s.id, s.name 
+        SELECT s.id, s.name 
         FROM sports s
-        JOIN courts c ON s.id = c.sport_id
-        WHERE c.center_id = ?
+        WHERE s.center_id = ?
     `;
 
     db.query(query, [center_id], (error, results) => {
