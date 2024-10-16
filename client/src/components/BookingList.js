@@ -19,7 +19,7 @@ function BookingList({ filter }) {
         if (filter.center && filter.sport && filter.date) {
             setLoading(true);
             axios
-                .get('http://localhost:3001/bookings', {
+                .get('https://sports-booking-app-backend.onrender.com/bookings', {
                     params: {
                         center_id: filter.center,
                         sport_id: filter.sport,
