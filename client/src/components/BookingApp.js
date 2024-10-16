@@ -14,7 +14,7 @@ const BookingApp = () => {
     const [selectedDate, setSelectedDate] = useState('');
     const [loading, setLoading] = useState(false);
     const [showBooking, setShowBooking] = useState(false);
-    const [theme, setTheme] = useState('light'); // Theme: 'light' or 'dark'
+    // const [theme, setTheme] = useState('light'); // Theme: 'light' or 'dark'
 
     const timeSlots = [5, 6, 7, 8, 9, 10]; // Example time slots
 
@@ -98,34 +98,23 @@ const BookingApp = () => {
             });
     };
 
-    // Toggle between dark and light theme
-    const toggleTheme = () => {
-        if (theme === 'light') {
-            setTheme('dark');
-            document.body.classList.add('dark-mode');
-            localStorage.setItem('theme', 'dark'); // Save theme in localStorage
-        } else {
-            setTheme('light');
-            document.body.classList.remove('dark-mode');
-            localStorage.setItem('theme', 'light'); // Save theme in localStorage
-        }
-    };
 
-    // Load the saved theme from localStorage when the component mounts
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        setTheme(savedTheme);
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        }
-    }, []);
+
+    // // Load the saved theme from localStorage when the component mounts
+    // useEffect(() => {
+    //     const savedTheme = localStorage.getItem('theme') || 'light';
+    //     setTheme(savedTheme);
+    //     if (savedTheme === 'dark') {
+    //         document.body.classList.add('dark-mode');
+    //     }
+    // }, []);
 
     return (
         <div className="container">
             {/* Theme toggle button with sun/moon icon */}
-            <div className="theme-toggle" onClick={toggleTheme}>
+            {/* <div className="theme-toggle" onClick={toggleTheme}>
                 {theme === 'light' ? <FaMoon /> : <FaSun />}
-            </div>
+            </div> */}
 
             <h1>View Bookings</h1>
 
